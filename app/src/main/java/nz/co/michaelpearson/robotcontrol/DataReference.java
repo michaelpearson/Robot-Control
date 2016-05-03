@@ -1,4 +1,4 @@
-package nz.co.michaelpearon.robotcontrol;
+package nz.co.michaelpearson.robotcontrol;
 
 public class DataReference {
     private byte x1, x2, y1, y2, speed, buttons;

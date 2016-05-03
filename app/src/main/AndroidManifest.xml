@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="nz.co.michaelpearon.robotcontrol">
+    package="nz.co.michaelpearson.robotcontrol">
     <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:allowBackup="true"
@@ -21,7 +21,7 @@
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="nz.co.michaelpearon.robotcontrol.MainActivity" />
+                android:value="nz.co.michaelpearson.robotcontrol.MainActivity" />
         </activity>
     </application>
 

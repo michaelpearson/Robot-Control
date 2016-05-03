@@ -1,4 +1,4 @@
-package nz.co.michaelpearon.robotcontrol;
+package nz.co.michaelpearson.robotcontrol;
 
 import android.content.Context;
 import android.graphics.Canvas;

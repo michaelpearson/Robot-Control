@@ -1,4 +1,4 @@
-package nz.co.michaelpearon.robotcontrol;
+package nz.co.michaelpearson.robotcontrol;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,8 +9,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import java.io.IOException;
 import java.net.Socket;
-import java.util.EventListener;
 
 public class MainActivity extends AppCompatActivity {
     private JoystickView leftJoystick;
@@ -18,10 +18,11 @@ public class MainActivity extends AppCompatActivity {
 
     private int speed = 0;
     private int port = 0;
+    private int frequency = 0;
     private String ipAddress;
 
     private TransmitterThread transmitterThread;
-
+    private DataReference data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +30,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         leftJoystick = (JoystickView)findViewById(R.id.joystick_left);
         rightJoystick = (JoystickView)findViewById(R.id.joystick_right);
+        try {
+            transmitterThread = buildTransmitterThread();
+        } catch(IOException e) {
+            // Let's just ignore this! :)
+        }
+    }
+
+    private TransmitterThread buildTransmitterThread() throws IOException {
+        Socket socket = new Socket(ipAddress, port);
+        data = new DataReference();
+
+        return new TransmitterThread(socket, data, frequency);
     }
 
     @Override
@@ -37,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
         speed = sp.getInt("speed", 0);
         port = sp.getInt("port", 0);
+        frequency = sp.getInt("frequency", 0);
         ipAddress = sp.getString("ipAddress", "");
     }
 

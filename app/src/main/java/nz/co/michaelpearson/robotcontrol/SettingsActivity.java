@@ -1,4 +1,4 @@
-package nz.co.michaelpearon.robotcontrol;
+package nz.co.michaelpearson.robotcontrol;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
