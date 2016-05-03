@@ -7,20 +7,20 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="nz.co.michaelpearon.robotcontrol.MainActivity">
+    tools:context="nz.co.michaelpearson.robotcontrol.MainActivity">
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/layout">
-        <nz.co.michaelpearon.robotcontrol.JoystickView
+        <nz.co.michaelpearson.robotcontrol.JoystickView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/joystick_left" />
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <nz.co.michaelpearon.robotcontrol.JoystickView
+            <nz.co.michaelpearson.robotcontrol.JoystickView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
