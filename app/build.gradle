@@ -5,11 +5,11 @@ android {
     buildToolsVersion "23.0.3"
 
     defaultConfig {
-        applicationId "nz.co.michaelpearon.robotcontrol"
+        applicationId "nz.co.michaelpearson.robotcontrol"
         minSdkVersion 21
         targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.1"
     }
     buildTypes {
         release {
@@ -24,5 +24,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.3.0'
     compile 'com.android.support:support-v4:23.3.0'
-    compile 'com.pavelsikun:material-seekbar-preference:0.12.1+'
+    compile 'com.pavelsikun:material-seekbar-preference:0.12.1'
 }
