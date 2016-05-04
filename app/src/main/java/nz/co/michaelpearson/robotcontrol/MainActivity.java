@@ -12,15 +12,11 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-import java.io.IOException;
-import java.net.Socket;
-
 public class MainActivity extends AppCompatActivity implements EventCallback<String> {
     private JoystickView leftJoystick;
     private JoystickView rightJoystick;
 
     private TransmitterThread transmitterThread;
-    private DataReference data = new DataReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,32 +28,31 @@ public class MainActivity extends AppCompatActivity implements EventCallback<Str
 
     @Override
     protected void onResume() {
-        super.onResume();
         beginConnection();
+        super.onResume();
     }
 
     private void beginConnection() {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
         int speed = sp.getInt("speed", 1);
-        data.setSpeed((byte)(speed * 2.55));
         int port = Integer.valueOf(sp.getString("port", "0"));
         int frequency = sp.getInt("frequency", 1);
         String ipAddress = sp.getString("ipAddress", "");
-        transmitterThread = new TransmitterThread(ipAddress, port, frequency, data, this, new Handler());
+        transmitterThread = new TransmitterThread(ipAddress, port, frequency, this, new Handler(), new JoystickView[] {leftJoystick, rightJoystick}, speed, 0);
         transmitterThread.start();
     }
 
     @Override
     protected void onPause() {
-        super.onPause();
         transmitterThread.stopTransmitting();
         transmitterThread = null;
+        super.onPause();
     }
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         leftJoystick = null;
         rightJoystick = null;
+        super.onDestroy();
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
