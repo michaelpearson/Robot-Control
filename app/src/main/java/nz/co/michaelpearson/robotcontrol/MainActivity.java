@@ -13,17 +13,13 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity implements EventCallback<String> {
-    private JoystickView leftJoystick;
-    private JoystickView rightJoystick;
-
     private TransmitterThread transmitterThread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        leftJoystick = (JoystickView)findViewById(R.id.joystick_left);
-        rightJoystick = (JoystickView)findViewById(R.id.joystick_right);
+
     }
 
     @Override
@@ -34,11 +30,17 @@ public class MainActivity extends AppCompatActivity implements EventCallback<Str
 
     private void beginConnection() {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
-        int speed = sp.getInt("speed", 1);
-        int port = Integer.valueOf(sp.getString("port", "0"));
+        int speed = (int)(sp.getInt("speed", 1) * 2.55);
         int frequency = sp.getInt("frequency", 1);
+        int port = Integer.valueOf(sp.getString("port", "0"));
         String ipAddress = sp.getString("ipAddress", "");
-        transmitterThread = new TransmitterThread(ipAddress, port, frequency, this, new Handler(), new JoystickView[] {leftJoystick, rightJoystick}, speed, 0);
+
+        JoystickView joysticks[] = new JoystickView[] {
+                (JoystickView) findViewById(R.id.joystick_left),
+                (JoystickView)findViewById(R.id.joystick_right)
+        };
+
+        transmitterThread = new TransmitterThread(ipAddress, port, frequency, this, joysticks, speed, 0);
         transmitterThread.start();
     }
 
@@ -48,12 +50,7 @@ public class MainActivity extends AppCompatActivity implements EventCallback<Str
         transmitterThread = null;
         super.onPause();
     }
-    @Override
-    protected void onDestroy() {
-        leftJoystick = null;
-        rightJoystick = null;
-        super.onDestroy();
-    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
@@ -62,9 +59,26 @@ public class MainActivity extends AppCompatActivity implements EventCallback<Str
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Intent i = new Intent(this, SettingsActivity.class);
-        startActivity(i);
-        return true;
+        switch(item.getItemId()) {
+            case R.id.settings_menu_button:
+                Intent i = new Intent(this, SettingsActivity.class);
+                startActivity(i);
+                return true;
+            case R.id.action_1_menu_button:
+                transmitterThread.setButtons(0b00000001);
+                return true;
+            case R.id.action_2_menu_button:
+                transmitterThread.setButtons(0b00000010);
+                return true;
+            case R.id.action_3_menu_button:
+                transmitterThread.setButtons(0b00000100);
+                return true;
+            case R.id.action_4_menu_button:
+                transmitterThread.setButtons(0b00001000);
+                return true;
+            default:
+                return false;
+        }
     }
 
     @Override
