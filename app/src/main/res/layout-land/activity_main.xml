@@ -8,20 +8,19 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/layout">
+        android:id="@+id/layout"
+        android:weightSum="1">
         <nz.co.michaelpearson.robotcontrol.JoystickView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/joystick_left" />
-        <RelativeLayout
+            android:id="@+id/joystick_left"
+            android:layout_weight="0.5"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent" />
+        <nz.co.michaelpearson.robotcontrol.JoystickView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <nz.co.michaelpearson.robotcontrol.JoystickView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_alignParentRight="true"
-                android:id="@+id/joystick_right" />
-        </RelativeLayout>
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:layout_weight="0.5"
+            android:layout_alignParentRight="true"
+            android:id="@+id/joystick_right" />
     </LinearLayout>
 </RelativeLayout>
